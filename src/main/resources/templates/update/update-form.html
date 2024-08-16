@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách sinh viên</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://th.bing.com/th/id/OIP.JWOQEZW2owsenMs3_GiqfwHaGs?w=1280&h=1158&rs=1&pid=ImgDetMain');
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+       .main {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 700px;
+        }
+
+        .main h2 {
+            color: #4caf50;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+
+</head>
+<body>
+
+<form th:action="@{/students/save}" th:object="${student}" method="POST">
+<div class="main">
+    <h2>CHỈNH SỬA <a th:href="@{/homepage}" class="btn btn-info btn-sm" style="float: right;">X</a></h2>
+    <form action="" >
+        <label for="id"
+        >ID: Không thể chỉnh sửa</label
+        >
+        <input
+                type="hidden" th:field="*{id}"
+                id="id"
+                name="od"
+                required
+        />
+
+        <label for="first"
+        >First Name:</label
+        >
+        <input
+                type="text" th:field="*{firstName}"
+                id="first"
+                name="first"
+                required
+        />
+
+        <label for="last"
+        >Last Name:</label
+        >
+        <input
+                type="text" th:field="*{lastName}"
+                id="last"
+                name="last"
+                required
+        />
+
+        <label for="ngaySinh">Birth Date:</label>
+        <input type="date" th:field="*{ngaySinh}" id="ngaySinh" name="ngaySinh" class="form-control" required />
+
+
+        <label for="email">Email:</label>
+        <input
+                type="email" th:field="*{email}"
+                id="email"
+                name="email"
+                required
+                readonly
+        />
+
+        <label for="sodienthoai"
+        >Phone Number:</label
+        >
+        <input
+                type="text" th:field="*{soDienThoai}"
+                id="sodienthoai"
+                name="sodienthoai"
+                required
+        />
+
+        <label for="diachi"
+        >Address:</label
+        >
+        <input
+                type="text" th:field="*{diachi}"
+                id="diachi"
+                name="diachi"
+                required
+        />
+
+
+        <label for="Lop">Class:</label>
+        <input
+                type="text"
+                th:field="*{lop}"
+                id="lop"
+                name="lop"
+                required
+                style="display: none;"
+        />
+
+        <select id="classSelect">
+            <!-- Hiển thị lớp hiện tại nếu có -->
+            <option th:if="${#fields.hasErrors('lop')}" th:value="${lop}" th:text="${lop}"></option>
+
+            <!-- Danh sách các lớp -->
+            <option ></option>
+            <option value="6A">Lớp 6A</option>
+            <option value="6B">Lớp 6B</option>
+            <option value="7A">Lớp 7A</option>
+            <option value="7B">Lớp 7B</option>
+            <option value="8A">Lớp 8A</option>
+            <option value="8B">Lớp 8B</option>
+            <option value="9A">Lớp 9A</option>
+            <option value="9B">Lớp 9B</option>
+        </select>
+
+        <script>
+            // Lấy đối tượng dropdown
+            var classSelect = document.getElementById("classSelect");
+
+            // Nếu trường input lớp không trống, chọn lớp đó trong dropdown
+            if (document.getElementById("lop").value !== "") {
+                classSelect.value = document.getElementById("lop").value;
+            }
+
+            // Gắn sự kiện onchange cho dropdown
+            classSelect.addEventListener("change", function() {
+                // Lấy giá trị của lớp đã chọn
+                var selectedClass = classSelect.value;
+
+                // Gán giá trị lớp đã chọn cho trường input
+                document.getElementById("lop").value = selectedClass;
+            });
+        </script>
+
+        <button type="submit">
+            Submit
+        </button>
+    </form>
+
+
+</div>
+
+
+    </form>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>

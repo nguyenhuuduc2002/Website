@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Sinh Viên Mới</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <style>
+        body {
+          margin-top: 20px;
+            background-image: url('https://static.vecteezy.com/system/resources/previews/011/154/146/original/world-space-day-with-rocket-background-free-vector.jpg');
+            background-size: cover; /* Ensures the image covers the entire background */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-position: center; /* Centers the background image */
+            background-attachment: fixed; /* Keeps the background image fixed during scrolling */
+      }
+      .table-responsive {
+          margin-top: 20px;
+      }
+      .bg-light-gray {
+          background-color: #f7f7f7;
+      }
+      .table-bordered {
+          border: 2px solid #dee2e6;
+      }
+      .table-bordered thead th {
+          border-bottom-width: 3px;
+          vertical-align: bottom;
+      }
+      .table-bordered td, .table-bordered th {
+          border: 2px solid #dee2e6;
+      }
+    </style>
+</head>
+<body>
+<div class="container mt-4 mb-4">
+    <form class="bg-light p-4 m-auto">
+
+        <!-- Student ID -->
+        <div class="row mb-3">
+            <div class="col-lg-2">
+                <p>ID</p>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" class="form-control-plaintext" th:value="${scores.student.id}" readonly required>
+            </div>
+        </div>
+
+        <!-- Scores for different subjects -->
+        <div class="row mb-3">
+            <div class="col-lg-2">
+                <p>Điểm Toán</p>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" class="form-control" th:value="${scores.diemToan}" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-lg-2">
+                <p>Điểm Lý</p>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" class="form-control" th:value="${scores.diemLy}" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-lg-2">
+                <p>Điểm Hóa</p>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" class="form-control" th:value="${scores.diemHoa}" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-lg-2">
+                <p>Điểm Sinh</p>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" class="form-control" th:value="${scores.diemSinh}" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-lg-2">
+                <p>Điểm Văn</p>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" class="form-control" th:value="${scores.diemVan}" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-lg-2">
+                <p>Điểm Sử</p>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" class="form-control" th:value="${scores.diemSu}" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-lg-2">
+                <p>Điểm Địa</p>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" class="form-control" th:value="${scores.diemDia}" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-lg-2">
+                <p>Điểm Anh</p>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" class="form-control" th:value="${scores.diemAnh}" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-lg-2">
+                <p>Điểm Trung Bình</p>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" class="form-control" th:value="${scores.diemTrungBinh}" required>
+            </div>
+        </div>
+
+        <!-- Academic performance -->
+        <div class="row mb-3">
+            <div class="col-lg-2">
+                <p>Học Lực</p>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" class="form-control" th:value="${scores.hocLuc}" required>
+            </div>
+        </div>
+
+        <!-- Back to homepage button -->
+        <a class="btn btn-primary profile-button" th:href="@{/homepage}">Trang Chủ</a>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>

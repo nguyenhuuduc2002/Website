@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+
+
+
+    <style>
+        .row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 20px;
+          background-color: #f2f2f2;
+        }
+
+
+
+        .user-info {
+          margin-right: 20px;
+        }
+
+        .user-info b {
+          font-weight: bold;
+        }
+
+        .logout-form input[type="submit"] {
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          padding: 8px 16px;
+          cursor: pointer;
+        }
+
+        .logout-form input[type="submit"]:hover {
+          background-color: #0056b3;
+        }
+    </style>
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+
+    body {
+      margin: 0;
+      box-sizing: border-box;
+    }
+    /* CSS for header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f5f5f5;
+    }
+
+    .header .logo {
+      font-size: 25px;
+      font-family: 'Sriracha', cursive;
+      color: #000;
+      text-decoration: none;
+      margin-left: 30px;
+    }
+
+    .nav-items {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-color: #f5f5f5;
+      margin-right: 20px;
+    }
+
+    .nav-items a {
+      text-decoration: none;
+      color: #000;
+      padding: 35px 20px;
+    }
+
+    </style>
+
+
+    <style>
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+
+
+        .dropdown-list {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          background-color: #fff;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          display: none;
+          padding: 10px;
+        }
+
+
+
+        .dropdown-list li {
+          margin-bottom: 5px;
+        }
+
+        .dropdown-list a {
+          display: block;
+          padding: 5px;
+          color: #333;
+          text-decoration: none;
+        }
+
+        .dropdown:hover .dropdown-list {
+          display: block;
+        }
+    </style>
+
+    <style>
+
+        .container
+        {
+          position:relative;
+          width:900px;
+          display:flex;
+          justify-content:space-around;
+        }
+
+        .percent .num
+        {
+          position:absolute;
+          top:0;
+          left:0;
+          width:100%;
+          height:100%;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          border-radius:50%;
+        }
+        .percent .num h2
+        {
+          color:#777;
+          font-weight:700;
+          font-size:40px;
+          transition:0.5s;
+        }
+
+        .card:hover .percent .num h2 span
+        {
+          color:#fff;
+        }
+
+        .card:hover .text
+        {
+          color:#fff;
+        }
+        svg
+        {
+          position:relative;
+          width:150px;
+          height:150px;
+          z-index:1000;
+        }
+        svg circle
+        {
+          width:100%;
+          height:100%;
+          fill:none;
+          stroke:#191919;
+          stroke-width:10;
+          stroke-linecap:round;
+          transform:translate(5px,5px);
+        }
+        svg circle:nth-child(2)
+        {
+          stroke-dasharray:440;
+          stroke-dashoffset:440;
+        }
+        .card:nth-child(1) svg circle:nth-child(2)
+        {
+          stroke-dashoffset:calc(440 - (440 * 100) / 100);
+          stroke:#00ff43;
+        }
+
+    </style>
+    <style>
+        .row {
+        background-image: url('https://nhadepso.com/wp-content/uploads/2023/02/hinh-nen-mau-nau-dep_3.jpg');
+        }
+    </style>
+
+
+
+
+
+</head>
+<body>
+
+
+<a>
+
+
+    <div th:replace="fragments/header_admin :: headerFragment"></div>
+
+
+
+
+    <div class="row">
+
+            <div class="col-md-6 mb-2">
+                <div class="container">
+                    <div class="card">
+                        <div class="box">
+                            <div class="percent">
+                                <svg>
+                                    <circle cx="70" cy="70" r="70"></circle>
+                                    <circle cx="70" cy="70" r="70"></circle>
+                                </svg>
+                                <div class="num" >
+                                    <h2><span th:text="${diemGioi}"></span></h2>
+                                </div>
+                            </div>
+                            <h2 class="text">Đạt giỏi %</h2>
+                        </div>
+                    </div>
+                </div>
+
+    </div>
+
+
+
+    <div class="col-md-6 mb-4">
+    <div class="container">
+        <div class="card">
+            <div class="box">
+                <div class="percent">
+                    <svg>
+                        <circle cx="70" cy="70" r="70"></circle>
+                        <circle cx="70" cy="70" r="70"></circle>
+                    </svg>
+                    <div class="num" >
+                        <h2><span th:text="${diemKha}"></span></h2>
+                    </div>
+                </div>
+                <h2 class="text">Đạt khá %</h2>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+ <div class="row">
+   <div class="col-md-6 mb-4">
+    <div class="container">
+        <div class="card">
+            <div class="box">
+                <div class="percent">
+                    <svg>
+                        <circle cx="70" cy="70" r="70"></circle>
+                        <circle cx="70" cy="70" r="70"></circle>
+                    </svg>
+                    <div class="num" >
+                        <h2><span th:text="${diemTB}"></span></h2>
+                    </div>
+                </div>
+                <h2 class="text">Đạt tb %</h2>
+            </div>
+        </div>
+    </div>
+        </div>
+
+
+
+  <div class="col-md-6 mb-4">
+    <div class="container">
+        <div class="card">
+            <div class="box">
+                <div class="percent">
+                    <svg>
+                        <circle cx="70" cy="70" r="70"></circle>
+                        <circle cx="70" cy="70" r="70"></circle>
+                    </svg>
+                    <div class="num" >
+                        <h2><span th:text="${diemYeu}"></span></h2>
+                    </div>
+                </div>
+                <h2 class="text">Đạt yếu %</h2>
+            </div>
+        </div>
+    </div>
+     </div>
+    </div>
+
+    <div class="row">
+   <div class="col-md-6 mb-4">
+    <div class="container">
+        <div class="card">
+            <div class="box">
+                <div class="percent">
+                    <svg>
+                        <circle cx="70" cy="70" r="70"></circle>
+                        <circle cx="70" cy="70" r="70"></circle>
+                    </svg>
+                    <div class="num" >
+                        <h2><span th:text="${diemKem}"></span></h2>
+                    </div>
+                </div>
+                <h2 class="text">Đạt kém %</h2>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+
+
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>

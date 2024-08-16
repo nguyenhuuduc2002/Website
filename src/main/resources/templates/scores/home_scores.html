@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang Quản Lý Điểm</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <style>
+
+        html,
+        body,
+        .intro {
+        height: 100%;
+        }
+
+        table td,
+        table th {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        }
+
+        thead th,
+        tbody th {
+        color: #fff;
+        }
+
+        tbody td {
+        font-weight: 500;
+        color: rgba(255,255,255,.65);
+        }
+
+        .card {
+        border-radius: .5rem;
+        }
+
+    </style>
+
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+
+    body {
+      margin: 0;
+      box-sizing: border-box;
+    }
+    /* CSS for header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f5f5f5;
+    }
+
+    .header .logo {
+      font-size: 25px;
+      font-family: 'Sriracha', cursive;
+      color: #000;
+      text-decoration: none;
+      margin-left: 30px;
+    }
+
+    .nav-items {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-color: #f5f5f5;
+      margin-right: 20px;
+    }
+
+    .nav-items a {
+      text-decoration: none;
+      color: #000;
+      padding: 35px 20px;
+    }
+
+    </style>
+
+
+    <style>
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+
+
+        .dropdown-list {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          background-color: #fff;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          display: none;
+          padding: 10px;
+        }
+
+
+
+        .dropdown-list li {
+          margin-bottom: 5px;
+        }
+
+        .dropdown-list a {
+          display: block;
+          padding: 5px;
+          color: #333;
+          text-decoration: none;
+        }
+
+        .dropdown:hover .dropdown-list {
+          display: block;
+        }
+    </style>
+
+    <style>
+        .custom-row {
+            padding: 400px;
+            background-image: url('https://img.meta.com.vn/Data/image/2021/09/30/background-la-gi-anh-background-dep-5.jpg');
+            background-size: cover; /* Đảm bảo hình ảnh hiển thị đầy đủ */
+            height: 400px; /* Đặt chiều cao của phần tử */
+        }
+    </style>
+
+    <style>
+
+        #tableContainer {
+      max-height: 600px; /* Thiết lập chiều cao tối đa của phần tử chứa bảng */
+      overflow-y: auto; /* Tự động hiển thị thanh cuộn dọc khi cần */
+    }
+    </style>
+
+</head>
+<body>
+
+
+
+ <a>
+
+     <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+         <div th:replace="fragments/header_admin :: headerFragment"></div>
+     </div>
+     <div sec:authorize="hasAuthority('ROLE_TEACHER')">
+         <div th:replace="fragments/header :: headerFragment"></div>
+     </div>
+
+
+
+     <section class="intro"   >
+    <div class="custom-row">
+        <div class="bg-image h-100 " >
+            <div class="mask d-flex align-items-center h-100" style="">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <div>
+                                <div class="card-body">
+                                    <div class="table-responsive" id="tableContainer">
+
+
+                                        <table class="table table-light table-borderless mb-0" >
+                                            <thead>
+                                            <tr>
+
+                                                <th scope="col">Điểm Toán</th>
+                                                <th scope="col">Điểm Lý</th>
+                                                <th scope="col">Điểm Hóa</th>
+                                                <th scope="col">Điểm Sinh</th>
+                                                <th scope="col">Điểm Văn</th>
+                                                <th scope="col">Điểm Sử</th>
+                                                <th scope="col">Điểm Địa</th>
+                                                <th scope="col">Điểm Tiếng Anh</th>
+                                                <th scope="col">Điểm TB</th>
+
+                                                <!--                                                <th scope="col">ID_DiemSo</th>-->
+                                                <th scope="col">ID_SinhVien</th>
+                                                <th scope="col">Xử Lý</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="scores : ${scores}">
+
+                                                <td th:text="${scores.diemToan}" />
+                                                <td th:text="${scores.diemLy}" />
+                                                <td th:text="${scores.diemHoa}" />
+                                                <td th:text="${scores.diemSinh}" />
+                                                <td th:text="${scores.diemVan}" />
+                                                <td th:text="${scores.diemSu}" />
+                                                <td th:text="${scores.diemDia}" />
+                                                <td th:text="${scores.diemAnh}" />
+                                                <td th:text="${scores.diemTrungBinh}" />
+<!--                                                <td th:text="${scores.id}" />-->
+                                                <td th:text="${scores.student.id}" />
+
+                                                <td>
+
+                                                    <a th:href="@{/scores/update(id=${scores.id})}" class="btn btn-info btn-sm">
+                                                        Chỉnh sửa
+                                                    </a>
+                                                    <a th:href="@{/scores/delete(id=${scores.id})}" class="btn btn-danger btn-sm"
+                                                       onclick="return confirm('Bạn có chắc chắn xóa bảng điểm này này không?');">
+                                                        Xóa
+                                                    </a>
+
+
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    </section>
+
+</a>
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+</body>
+</html>
