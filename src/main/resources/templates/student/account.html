@@ -139,8 +139,8 @@
                                             <tr th:each="user : ${users}">
                                                 <td th:text="${user.username}" />
                                                 <td th:text="${user.password}" />
-                                                <td th:text="${user.roles}" />
-                                                <td th:text="${user.enabled}" />
+                                                <td><b th:text="${user.roles}"></b></td>
+                                                <td><i th:text="${user.enabled}" ></i></td>
 
                                                 <td>
                                                     <div class="action-container">

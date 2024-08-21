@@ -22,5 +22,7 @@ public interface UserService {
 
     public User findByEmail(String email);
 
+    public void updatePassword(String username, String newPassword);
+
 
 }

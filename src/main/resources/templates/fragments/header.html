@@ -101,6 +101,15 @@
         </div>
         <div><a th:href="@{/user/scheduleTeacher}">Quản lý Lịch Dạy</a></div>
         <div><a th:href="@{/home_class}">Quản lý Lớp Học</a></div>
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle">Quản lý Tài Khoản</a>
+            <div class="dropdown-list">
+                <ul>
+                    <li><a th:href="@{/students/showPasswordPage}">Đổi Mật Khẩu</a></li>
+
+                </ul>
+            </div>
+        </div>
         <form action="#" th:action="@{/logout}" method="POST">
             <input type="submit" class="btn btn-info" value="Đăng xuất"/>
         </form>

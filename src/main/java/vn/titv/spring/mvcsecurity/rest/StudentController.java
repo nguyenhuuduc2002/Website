@@ -1,5 +1,7 @@
 package vn.titv.spring.mvcsecurity.rest;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.titv.spring.mvcsecurity.entity.Scores;
 import vn.titv.spring.mvcsecurity.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class StudentController {
     private ScoresService scoresService;
 
     private UserService userService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     public StudentController(StudentService studentService, ScoresService scoresService, UserService userService) {
@@ -112,6 +117,40 @@ public class StudentController {
 
     }
 
+    @GetMapping("/showPasswordPage")
+    public String showUpdatePasswordForm(Model model) {
+        model.addAttribute("user", new User());
+        return "student/change_password";
+    }
+
+    @PostMapping("/updatePassword")
+    public String updatePassword(@RequestParam("currentPassword") String currentPassword,
+                                 @RequestParam("newPassword") String newPassword,
+                                 @RequestParam("confirmPassword") String confirmPassword,
+                                 Principal principal,
+                                 Model model,
+                                 RedirectAttributes redirectAttributes) {
+        String username = principal.getName();
+        User user = userService.findByUsername(username);
+
+        // Kiểm tra mật khẩu hiện tại
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            redirectAttributes.addFlashAttribute("error", "Mật khẩu hiện tại không đúng!");
+            return "redirect:/students/showPasswordPage";
+        }
+
+        // Kiểm tra mật khẩu mới và xác nhận
+        if (!newPassword.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute("error", "Mật khẩu mới và xác nhận mật khẩu không khớp!");
+            return "redirect:/students/showPasswordPage";
+        }
+
+        // Cập nhật mật khẩu
+        userService.updatePassword(user.getUsername(), passwordEncoder.encode(newPassword));
+
+        // Chuyển hướng đến trang chủ
+        return "public/homepage";
+    }
 
 
 
