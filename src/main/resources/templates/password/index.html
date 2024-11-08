@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/fragments/head :: head"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <div th:replace="admin/fragments/header :: header"></div>
+
+    <div sec:authorize="hasRole('ADMIN')" th:replace="admin/fragments/sidebar_admin :: sidebar"></div>
+
+    <!-- Hiển thị sidebar của Student -->
+    <div sec:authorize="hasRole('STUDENT')" th:replace="admin/fragments/sidebar_student :: sidebar"></div>
+
+    <!-- Hiển thị sidebar của Teacher -->
+    <div sec:authorize="hasRole('TEACHER')" th:replace="admin/fragments/sidebar_teacher :: sidebar"></div>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+
+        <section class="intro">
+
+
+                <!-- Hiển thị thông báo lỗi -->
+                <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+                <!-- Hiển thị thông báo thành công -->
+                <div class="alert alert-success" th:if="${success}" th:text="${success}"></div>
+
+                <form th:action="@{/user/updatePassword}" method="post">
+                    <div class="row">
+                        <div class="col-md-6 mb-4 pb-2">
+                            <div class="mb-3 form-group">
+                                <label for="currentPassword">Mật Khẩu Hiện Tại:</label>
+                                <input type="password" id="currentPassword" name="currentPassword" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4 pb-2">
+                            <div class="mb-3 form-group">
+                                <label for="newPassword">Mật Khẩu Mới:</label>
+                                <input type="password" id="newPassword" name="newPassword" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4 pb-2">
+                            <div class="mb-3 form-group">
+                                <label for="confirmPassword">Xác Nhận Mật Khẩu Mới:</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4 pb-2">
+                            <button type="submit" class="btn btn-primary w-100 mt-3">Lưu</button>
+                        </div>
+                    </div>
+                </form>
+        </section>
+    </div>
+    <!-- /.content-wrapper -->
+    <div th:replace="admin/fragments/footer :: footer"></div>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/jquery-ui.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/adminlte.min.js}"></script>
+<script th:src="@{/assets/js/dashboard.js}"></script>
+<script th:src="@{/assets/js/function.js}"></script>
+</body>
+</html>

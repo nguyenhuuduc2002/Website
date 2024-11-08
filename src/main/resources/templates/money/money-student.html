@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/fragments/head :: head"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<head>
+    <style>
+        /* Thiết lập chung cho select */
+        .custom-select {
+            width: 200px;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            color: #333;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .custom-select:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+
+        /* Tùy chỉnh nút */
+        .btn-custom {
+            font-size: 16px;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: white;
+            background-color: #4a90e2;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #357abd;
+        }
+    </style>
+</head>
+
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <div th:replace="admin/fragments/header :: header"></div>
+
+    <div sec:authorize="hasRole('ADMIN')" th:replace="admin/fragments/sidebar_admin :: sidebar"></div>
+
+    <!-- Hiển thị sidebar của Student -->
+    <div sec:authorize="hasRole('STUDENT')" th:replace="admin/fragments/sidebar_student :: sidebar"></div>
+
+    <!-- Hiển thị sidebar của Teacher -->
+    <div sec:authorize="hasRole('TEACHER')" th:replace="admin/fragments/sidebar_teacher :: sidebar"></div>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <section class="intro">
+
+        <!-- Content Header (Page header) -->
+
+        <form th:action="@{/money/update}" th:object="${money}" method="post">
+
+            <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                    <label>Khối :</label>
+                    <input class="form-select custom-select" type="text" th:field="*{khoiHoc}" readonly />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                    <div class="mb-3 form-group">
+                        <label for="tienHoc">Tiền Học:</label>
+                        <input type="number" id="tienHoc" th:field="*{tienHoc}" class="form-control" readonly />
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4 pb-2">
+                    <div class="mb-3 form-group">
+                        <label for="tienBaoHiem">Tiền Bảo Hiểm:</label>
+                        <input type="number" id="tienBaoHiem" th:field="*{tienBaoHiem}" class="form-control"  readonly />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                    <div class="mb-3 form-group">
+                        <label for="tienDongPhuc">Tiền Đồng Phục:</label>
+                        <input type="number" id="tienDongPhuc" th:field="*{tienDongPhuc}" class="form-control"  readonly />
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4 pb-2">
+                    <div class="mb-3 form-group">
+                        <label for="tienBanTru">Tiền Bán Trú:</label>
+                        <input type="number" id="tienBanTru" th:field="*{tienBanTru}" class="form-control" readonly />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                    <div class="mb-3 form-group">
+                        <label for="tienHocThem">Tiền Học Thêm:</label>
+                        <input type="number" id="tienHocThem" th:field="*{tienHocThem}" class="form-control"  readonly />
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4 pb-2">
+                    <div class="mb-3 form-group">
+                        <label for="tienQuy">Tiền Quỹ:</label>
+                        <input type="number" id="tienQuy" th:field="*{tienQuy}" class="form-control"  readonly />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                    <div class="mb-3 form-group">
+                        <label for="tienSach">Tiền Sách:</label>
+                        <input type="number" id="tienSach" th:field="*{tienSach}" class="form-control"  readonly />
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4 pb-2">
+                    <div class="mb-3 form-group">
+                        <label for="dichVuKhac">Dịch Vụ Khác:</label>
+                        <input type="number" id="dichVuKhac" th:field="*{dichVuKhac}" class="form-control"  readonly />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="mb-3 form-group">
+                <label for="dichVuKhac">Tổng Tiền Thanh Toán:</label>
+                <input type="number" id="tongTien" th:field="*{tongTien}" class="form-control"  readonly />
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-6 mb-4 pb-2">
+                    <a class="btn btn-primary w-100 mt-3" th:href="@{/money/pay}">Thanh Toán</a>
+                </div>
+
+            </div>
+
+        </form>
+
+
+
+        </section>
+    </div>
+    <!-- /.content-wrapper -->
+    <div th:replace="admin/fragments/footer :: footer"></div>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/jquery-ui.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/adminlte.min.js}"></script>
+<script th:src="@{/assets/js/dashboard.js}"></script>
+<script th:src="@{/assets/js/function.js}"></script>
+</body>
+</html>

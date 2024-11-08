@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/fragments/head :: head"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <div th:replace="admin/fragments/header :: header"></div>
+
+    <div sec:authorize="hasRole('ADMIN')" th:replace="admin/fragments/sidebar_admin :: sidebar"></div>
+
+    <!-- Hiển thị sidebar của Student -->
+    <div sec:authorize="hasRole('STUDENT')" th:replace="admin/fragments/sidebar_student :: sidebar"></div>
+
+    <!-- Hiển thị sidebar của Teacher -->
+    <div sec:authorize="hasRole('TEACHER')" th:replace="admin/fragments/sidebar_teacher :: sidebar"></div>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+
+
+        <div class="container mt-5">
+            <div class="alert alert-warning">
+                <strong>Thông báo:</strong> Chưa có điểm cho sinh viên này.
+            </div>
+        </div>
+
+
+
+    </div>
+    <!-- /.content-wrapper -->
+    <div th:replace="admin/fragments/footer :: footer"></div>
+
+</div>
+<!-- ./wrapper -->
+
+<script>
+
+    function sortScore() {
+        window.location.href = "/scores/sortByAverage";
+    }
+</script>
+
+
+<script>
+    function filterID() {
+       var filterID = document.getElementById('searchID').value;
+       if (filterID) {
+           window.location.href = "/scores/searchID?id=" + filterID;
+       } else {
+           alert("Vui lòng nhập ID cần tìm.");
+           return;
+       }
+    }
+
+</script>
+<!-- jQuery 3 -->
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/jquery-ui.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/adminlte.min.js}"></script>
+<script th:src="@{/assets/js/dashboard.js}"></script>
+<script th:src="@{/assets/js/function.js}"></script>
+</body>
+</html>

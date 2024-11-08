@@ -1,191 +1,187 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Trang Quản Lý Lịch Học</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <style>
-        body {
-            margin-top: 20px;
-            background-image: url('https://mega.com.vn/media/news/1907_khung-nen-ppt-dep-cho-slide5.jpg');
-            background-size: cover; /* Ensures the image covers the entire background */
-            background-repeat: no-repeat; /* Prevents the image from repeating */
-            background-position: center; /* Centers the background image */
-            background-attachment: fixed; /* Keeps the background image fixed during scrolling */
-        }
-        .table-responsive {
-            margin-top: 20px;
-        }
-        .bg-light-gray {
-            background-color: #f7f7f7;
-        }
-        .table-bordered {
-            border: 2px solid #dee2e6;
-        }
-        .table-bordered thead th {
-            border-bottom-width: 3px;
-            vertical-align: bottom;
-        }
-        .table-bordered td, .table-bordered th {
-            border: 2px solid #dee2e6;
-        }
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/head :: head"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
 
-        .profile-button {
-        background: rgb(99, 39, 120);
-        box-shadow: none;
-        border: none
-    }
+    <div th:replace="admin/fragments/header :: header"></div>
 
-    </style>
-</head>
-<body>
+    <div sec:authorize="hasRole('ADMIN')" th:replace="admin/fragments/sidebar_admin :: sidebar"></div>
 
-<div class="container">
+    <!-- Hiển thị sidebar của Student -->
+    <div sec:authorize="hasRole('STUDENT')" th:replace="admin/fragments/sidebar_student :: sidebar"></div>
+
+    <!-- Hiển thị sidebar của Teacher -->
+    <div sec:authorize="hasRole('TEACHER')" th:replace="admin/fragments/sidebar_teacher :: sidebar"></div>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
 
 
-    <!-- Schedule for Class 6 -->
-    <div id="class6" class="schedule table-responsive" th:if="${studentClass == '6A' or studentClass == '6B'}">
-        <table class="table table-bordered text-center">
-            <thead>
-            <tr class="bg-light-gray">
-                <th>Thời Gian</th>
-                <th>Thứ 2</th>
-                <th>Thứ 3</th>
-                <th>Thứ 4</th>
-                <th>Thứ 5</th>
-                <th>Thứ 6</th>
-                <th>Thứ 7</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Add Class 6 schedule here -->
-            <tr><td>07:00am</td><td>Toán</td><td>Hóa</td><td>Văn</td><td>Toán</td><td>Địa</td><td>Lý</td></tr>
-            <tr><td>07:50am</td><td>Văn</td><td>Hóa</td><td>Anh</td><td>Toán</td><td>Địa</td><td>Hóa</td></tr>
-            <tr><td>08:40am</td><td>Văn</td><td>Sinh</td><td>Địa</td><td>Sinh</td><td>Sử</td><td>Sinh</td></tr>
-            <tr><td>09:30am</td><td>Sử</td><td>Sinh</td><td>Sử</td><td>Lý</td><td>Anh</td><td>Sinh Hoạt</td></tr>
-            <tr><td>10:20am</td><td>Địa</td><td>Lý</td><td>Thể Dục</td><td>Lý</td><td>Anh</td><td></td></tr>
-            <tr><td>11:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>12:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>12:50am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>13:40am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>14:30am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>15:20am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>16:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>17:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <section class="intro">
 
 
-            <!-- Add more rows as needed -->
-            </tbody>
-        </table>
+            <div id="class6" class="schedule table-responsive" th:if="${studentClass == '6A' or studentClass == '6B'}">
+                <table class="table table-bordered text-center">
+                    <thead>
+                    <tr class="bg-light-gray">
+                        <th>Thời Gian</th>
+                        <th>Thứ 2</th>
+                        <th>Thứ 3</th>
+                        <th>Thứ 4</th>
+                        <th>Thứ 5</th>
+                        <th>Thứ 6</th>
+                        <th>Thứ 7</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Add Class 6 schedule here -->
+                    <tr><td>07:00am</td><td>Toán</td><td>Hóa</td><td>Văn</td><td>Toán</td><td>Địa</td><td>Lý</td></tr>
+                    <tr><td>07:50am</td><td>Văn</td><td>Hóa</td><td>Anh</td><td>Toán</td><td>Địa</td><td>Hóa</td></tr>
+                    <tr><td>08:40am</td><td>Văn</td><td>Sinh</td><td>Địa</td><td>Sinh</td><td>Sử</td><td>Sinh</td></tr>
+                    <tr><td>09:30am</td><td>Sử</td><td>Sinh</td><td>Sử</td><td>Lý</td><td>Anh</td><td>Sinh Hoạt</td></tr>
+                    <tr><td>10:20am</td><td>Địa</td><td>Lý</td><td>Thể Dục</td><td>Lý</td><td>Anh</td><td></td></tr>
+                    <tr><td>11:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>12:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>12:50am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>13:40am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>14:30am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>15:20am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>16:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>17:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+
+
+                    <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Schedule for Class 7 -->
+            <div id="class7" class="schedule table-responsive" th:if="${studentClass == '7A' or studentClass == '7B'}">
+                <table class="table table-bordered text-center">
+                    <thead>
+                    <tr class="bg-light-gray">
+                        <th>Thời Gian</th>
+                        <th>Thứ 2</th>
+                        <th>Thứ 3</th>
+                        <th>Thứ 4</th>
+                        <th>Thứ 5</th>
+                        <th>Thứ 6</th>
+                        <th>Thứ 7</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Add Class 7 schedule here -->
+                    <tr><td>07:00am</td><td>Sử</td><td>Sinh</td><td>Sử</td><td>Lý</td><td>Anh</td><td>Sinh</td></tr>
+                    <tr><td>07:50am</td><td>Địa</td><td>Lý</td><td>Thể Dục</td><td>Lý</td><td>Anh</td><td></td></tr>
+                    <tr><td>08:40am</td><td>Toán</td><td>Hóa</td><td>Văn</td><td>Toán</td><td>Địa</td><td>Lý</td></tr>
+                    <tr><td>09:30am</td><td>Văn</td><td>Hóa</td><td>Anh</td><td>Toán</td><td>Địa</td><td>Hóa</td></tr>
+                    <tr><td>10:20am</td><td>Văn</td><td>Sinh</td><td>Địa</td><td>Sinh</td><td>Sử</td><td>Sinh Hoạt</td></tr>
+
+                    <tr><td>11:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>12:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>12:50am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>13:40am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>14:30am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>15:20am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>16:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>17:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Schedule for Class 8 -->
+            <div id="class8" class="schedule table-responsive" th:if="${studentClass == '8A' or studentClass == '8B'}">
+                <table class="table table-bordered text-center">
+                    <thead>
+                    <tr class="bg-light-gray">
+                        <th>Thời Gian</th>
+                        <th>Thứ 2</th>
+                        <th>Thứ 3</th>
+                        <th>Thứ 4</th>
+                        <th>Thứ 5</th>
+                        <th>Thứ 6</th>
+                        <th>Thứ 7</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Add Class 8 schedule here -->
+                    <tr><td>07:00am</td><td>Văn</td><td>Hóa</td><td>Anh</td><td>Toán</td><td>Địa</td><td>Hóa</td></tr>
+                    <tr><td>07:50am</td><td>Văn</td><td>Sinh</td><td>Địa</td><td>Sinh</td><td>Sử</td><td>Sinh</td></tr>
+                    <tr><td>08:40am</td><td>Sử</td><td>Sinh</td><td>Sử</td><td>Lý</td><td>Anh</td><td>Sinh Hoạt</td></tr>
+                    <tr><td>09:30am</td><td>Toán</td><td>Hóa</td><td>Văn</td><td>Toán</td><td>Địa</td><td>Lý</td></tr>
+                    <tr><td>10:20am</td><td>Địa</td><td>Lý</td><td>Thể Dục</td><td>Lý</td><td>Anh</td><td></td></tr>
+                    <tr><td>11:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>12:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>12:50am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>13:40am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>14:30am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>15:20am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>16:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>17:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Schedule for Class 9 -->
+            <div id="class9" class="schedule table-responsive" th:if="${studentClass == '9A' or studentClass == '9B'}">
+                <table class="table table-bordered text-center">
+                    <thead>
+                    <tr class="bg-light-gray">
+                        <th>Thời Gian</th>
+                        <th>Thứ 2</th>
+                        <th>Thứ 3</th>
+                        <th>Thứ 4</th>
+                        <th>Thứ 5</th>
+                        <th>Thứ 6</th>
+                        <th>Thứ 7</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Add Class 9 schedule here -->
+                    <tr><td>07:00am</td><td>Toán</td><td>Hóa</td><td>Văn</td><td>Toán</td><td>Địa</td><td>Lý</td></tr>
+                    <tr><td>07:50am</td><td>Sử</td><td>Sinh</td><td>Sử</td><td>Lý</td><td>Anh</td><td>Sinh Hoạt</td></tr>
+                    <tr><td>08:40am</td><td>Địa</td><td>Lý</td><td>Thể Dục</td><td>Lý</td><td>Anh</td><td></td></tr>
+                    <tr><td>09:30am</td><td>Văn</td><td>Hóa</td><td>Anh</td><td>Toán</td><td>Địa</td><td>Hóa</td></tr>
+                    <tr><td>10:20am</td><td>Văn</td><td>Sinh</td><td>Địa</td><td>Sinh</td><td>Sử</td><td>Sinh</td></tr>
+
+                    <tr><td>11:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>12:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>12:50am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>13:40am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>14:30am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>15:20am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>16:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>17:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
     </div>
 
-    <!-- Schedule for Class 7 -->
-    <div id="class7" class="schedule table-responsive" th:if="${studentClass == '7A' or studentClass == '7B'}">
-        <table class="table table-bordered text-center">
-            <thead>
-            <tr class="bg-light-gray">
-                <th>Thời Gian</th>
-                <th>Thứ 2</th>
-                <th>Thứ 3</th>
-                <th>Thứ 4</th>
-                <th>Thứ 5</th>
-                <th>Thứ 6</th>
-                <th>Thứ 7</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Add Class 7 schedule here -->
-            <tr><td>07:00am</td><td>Sử</td><td>Sinh</td><td>Sử</td><td>Lý</td><td>Anh</td><td>Sinh</td></tr>
-            <tr><td>07:50am</td><td>Địa</td><td>Lý</td><td>Thể Dục</td><td>Lý</td><td>Anh</td><td></td></tr>
-            <tr><td>08:40am</td><td>Toán</td><td>Hóa</td><td>Văn</td><td>Toán</td><td>Địa</td><td>Lý</td></tr>
-            <tr><td>09:30am</td><td>Văn</td><td>Hóa</td><td>Anh</td><td>Toán</td><td>Địa</td><td>Hóa</td></tr>
-            <tr><td>10:20am</td><td>Văn</td><td>Sinh</td><td>Địa</td><td>Sinh</td><td>Sử</td><td>Sinh Hoạt</td></tr>
+    <!-- /.content-wrapper -->
+    <div th:replace="admin/fragments/footer :: footer"></div>
 
-            <tr><td>11:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>12:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>12:50am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>13:40am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>14:30am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>15:20am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>16:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>17:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <!-- Add more rows as needed -->
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Schedule for Class 8 -->
-    <div id="class8" class="schedule table-responsive" th:if="${studentClass == '8A' or studentClass == '8B'}">
-        <table class="table table-bordered text-center">
-            <thead>
-            <tr class="bg-light-gray">
-                <th>Thời Gian</th>
-                <th>Thứ 2</th>
-                <th>Thứ 3</th>
-                <th>Thứ 4</th>
-                <th>Thứ 5</th>
-                <th>Thứ 6</th>
-                <th>Thứ 7</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Add Class 8 schedule here -->
-            <tr><td>07:00am</td><td>Văn</td><td>Hóa</td><td>Anh</td><td>Toán</td><td>Địa</td><td>Hóa</td></tr>
-            <tr><td>07:50am</td><td>Văn</td><td>Sinh</td><td>Địa</td><td>Sinh</td><td>Sử</td><td>Sinh</td></tr>
-            <tr><td>08:40am</td><td>Sử</td><td>Sinh</td><td>Sử</td><td>Lý</td><td>Anh</td><td>Sinh Hoạt</td></tr>
-            <tr><td>09:30am</td><td>Toán</td><td>Hóa</td><td>Văn</td><td>Toán</td><td>Địa</td><td>Lý</td></tr>
-            <tr><td>10:20am</td><td>Địa</td><td>Lý</td><td>Thể Dục</td><td>Lý</td><td>Anh</td><td></td></tr>
-            <tr><td>11:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>12:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>12:50am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>13:40am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>14:30am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>15:20am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>16:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>17:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <!-- Add more rows as needed -->
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Schedule for Class 9 -->
-    <div id="class9" class="schedule table-responsive" th:if="${studentClass == '9A' or studentClass == '9B'}">
-        <table class="table table-bordered text-center">
-            <thead>
-            <tr class="bg-light-gray">
-                <th>Thời Gian</th>
-                <th>Thứ 2</th>
-                <th>Thứ 3</th>
-                <th>Thứ 4</th>
-                <th>Thứ 5</th>
-                <th>Thứ 6</th>
-                <th>Thứ 7</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Add Class 9 schedule here -->
-            <tr><td>07:00am</td><td>Toán</td><td>Hóa</td><td>Văn</td><td>Toán</td><td>Địa</td><td>Lý</td></tr>
-            <tr><td>07:50am</td><td>Sử</td><td>Sinh</td><td>Sử</td><td>Lý</td><td>Anh</td><td>Sinh Hoạt</td></tr>
-            <tr><td>08:40am</td><td>Địa</td><td>Lý</td><td>Thể Dục</td><td>Lý</td><td>Anh</td><td></td></tr>
-            <tr><td>09:30am</td><td>Văn</td><td>Hóa</td><td>Anh</td><td>Toán</td><td>Địa</td><td>Hóa</td></tr>
-            <tr><td>10:20am</td><td>Văn</td><td>Sinh</td><td>Địa</td><td>Sinh</td><td>Sử</td><td>Sinh</td></tr>
-
-            <tr><td>11:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>12:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>12:50am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>13:40am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>14:30am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>15:20am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>16:10am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>17:00am</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <!-- Add more rows as needed -->
-            </tbody>
-        </table>
-    </div>
-
-    <a class="btn btn-primary profile-button" th:href="@{/homepage}">Trang Chủ</a>
 </div>
+<!-- ./wrapper -->
 
+<!-- jQuery 3 -->
 
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/jquery-ui.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/adminlte.min.js}"></script>
+<script th:src="@{/assets/js/dashboard.js}"></script>
+<script th:src="@{/assets/js/function.js}"></script>
 </body>
 </html>

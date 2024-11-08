@@ -11,12 +11,12 @@ public class HomeController {
 
     @GetMapping()
     public String showHomePage(Model model){
-        return "public/homepage";
+        return "admin/index";
     }
 
     @GetMapping("/homepage")
     public String HomePage(Model model){
-        return "public/homepage";
+        return "admin/index";
     }
 
 }

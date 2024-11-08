@@ -2,7 +2,6 @@ package vn.titv.spring.mvcsecurity.service;
 
 
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import vn.titv.spring.mvcsecurity.entity.Student;
 import vn.titv.spring.mvcsecurity.entity.User;
 
@@ -25,6 +24,8 @@ public interface StudentService {
 
     public Student findByEmail(String email);
 
-    public void deleteStudentByEmail(String email);
+    public Student deleteStudentByEmail(String email);
+
+    public Student findStudentById(int id);
 
 }

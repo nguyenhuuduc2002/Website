@@ -1,101 +1,102 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <title>Trang Đăng Nhập</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <style>
+        body {
+          min-height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .container {
+          width: 100%;
+        }
         .form-heading {
-            font-size: 40px;
-            color: red;
-            position: relative;
-            top: -50px;
-        }
-
-        .gradient-custom {
-            background: #f093fb;
-            background: -webkit-linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
-            background: linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
-        }
-
-        .card-registration .select-input.form-control[readonly]:not([disabled]) {
-            font-size: 1rem;
-            line-height: 2.15;
-            padding-left: .75em;
-            padding-right: .75em;
-        }
-
-        .card-registration .select-arrow {
-            top: 13px;
+          font-size: 40px;
+          color: red;
+          position: relative;
+          top: -50px;
+          text-align: center;
         }
     </style>
+
+
+
 </head>
 <body>
-
-<div class="container">
-    <form id="registrationForm" th:action="@{/register}" th:object="${user}" method="post" class="form-horizontal" >
-
-
-        <section class="vh-100 gradient-custom">
-            <div class="container py-5 h-100">
-                <div class="row justify-content-center align-items-center h-100">
-                    <div class="col-12 col-lg-9 col-xl-7">
-                        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-                            <div class="card-body p-4 p-md-5">
-                                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5" style="color:blue">Trang Đăng Ký</h3>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <input type="text" th:field="*{username}" placeholder="Enter username" class="form-control">
-                                        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></div>
-                                    </div>
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <input type="password" id="password" th:field="*{password}" placeholder="Enter password" class="form-control">
-                                        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <input type="password" id="passwordConfirm" placeholder="Enter password again" class="form-control">
-                                        <div id="passwordConfirmError" class="text-danger"></div>
+<form id="registrationForm" th:action="@{/register}" th:object="${user}" method="post" class="form-horizontal" >
+    <section style="width: 100vw; height: 100vh; background-color: #9A616D;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-none d-md-block">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                            </div>
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5 text-black">
+                                    <div class="d-flex align-items-center mb-3 pb-1">
+                                        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                        <span class="h1 fw-bold mb-0">TRANG ĐĂNG KÝ</span>
                                     </div>
 
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <input type="email" id="email" th:field="*{email}" placeholder="Enter email" class="form-control">
-                                        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4 pb-2">
+                                            <input type="text" th:field="*{username}" placeholder="Enter username" class="form-control">
+                                            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></div>
+                                        </div>
+                                        <div class="col-md-6 mb-4 pb-2">
+                                            <input type="password" id="password" th:field="*{password}" placeholder="Enter password" class="form-control">
+                                            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></div>
+                                        </div>
                                     </div>
+
+                                    <!-- Trường mật khẩu -->
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4 pb-2">
+                                            <input type="password" id="passwordConfirm" placeholder="Enter password again" class="form-control">
+                                            <div id="passwordConfirmError" class="text-danger"></div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-4 pb-2">
+                                            <input type="email" id="email" th:field="*{email}" placeholder="Enter email" class="form-control">
+                                            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 mb-4 pb-2">
+                                        <select th:field="*{roles}" class="form-select">
+                                            <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}" class="text-danger"></div>
+                                    </div>
+
+                                    <div class="mt-4 pt-2">
+                                        <input class="btn btn-dark btn-lg btn-block" type="submit" value="Register"/>
+                                    </div>
+
+                                    <div id="successMessage" class="alert alert-success mt-3" style="display: none;">
+                                        Đang chờ xác thực tài khoản, vui lòng quay lại trang chủ
+                                    </div>
+
+                                    <p class="mb-5 pb-lg-2" style="color: #393f81;">you already have an account? <a th:href="@{/showLoginPage}">Login Here</a></p>
+
+                                    <p class="mb-5 pb-lg-2" style="color: #393f81;"><a th:href="@{/public}">Return Home Page</a></p>
                                 </div>
-
-                                <div class="col-md-6 mb-4 pb-2">
-                                    <select th:field="*{roles}" class="form-control">
-                                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
-                                    </select>
-                                    <div th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}" class="text-danger"></div>
-                                </div>
-
-
-
-                                <div class="mt-4 pt-2">
-                                    <input class="btn btn-primary btn-lg" type="submit" value="Submit"/>
-                                </div>
-                                <a th:href="@{/showLoginPage}">Return Login</a>
-
-                                <!-- Thông báo đăng ký thành công -->
-                                <div id="successMessage" class="alert alert-success mt-3" style="display: none;">
-                                    Đang chờ xác thực tài khoản, vui lòng quay lại trang chủ
-                                </div>
-                                <p class="mb-5 pb-lg-2" style="color: #393f81;"> <p><a th:href="@{/public}"> Quay lại trang chủ </a></p>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </form>
-</div>
+        </div>
+    </section>
+</form>
 
 <script>
     document.getElementById("registrationForm").addEventListener("submit", function(event) {
@@ -126,6 +127,6 @@
     });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@ import vn.titv.spring.mvcsecurity.dao.ScoresRepository;
 import vn.titv.spring.mvcsecurity.dao.StudentRepository;
 import vn.titv.spring.mvcsecurity.entity.Scores;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -83,6 +84,14 @@ public class ScoresServiceImpl implements ScoresService{
     @Override
     public Scores getScoresByStudentId(Integer studentId) {
         return scoresRepository.findByStudentId(studentId);
+    }
+
+    @Override
+    public List<Scores> getScoresSortedByAverage() {
+        List<Scores> allScores = getAllScores(); // Lấy tất cả các điểm
+        return allScores.stream()
+                .sorted(Comparator.comparingDouble(Scores::getDiemTrungBinh).reversed()) // Sắp xếp giảm dần theo điểm trung bình
+                .collect(Collectors.toList());
     }
 
 }

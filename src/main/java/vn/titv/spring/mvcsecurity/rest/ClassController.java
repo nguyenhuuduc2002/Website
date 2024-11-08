@@ -30,7 +30,7 @@ public class ClassController {
 
     @GetMapping
     public String showClassPage(Model model) {
-        return "home/home_class";
+        return "class/index";
     }
 
     @GetMapping("/search")
@@ -39,6 +39,8 @@ public class ClassController {
         Map<Integer, Scores> scores = scoresService.getScoresByStudentIds(students.stream().map(Student::getId).collect(Collectors.toList()));
         model.addAttribute("students", students);
         model.addAttribute("scores", scores);
-        return "home/home_class";
+        return "class/index";
     }
+
+
 }

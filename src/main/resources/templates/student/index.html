@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/fragments/head :: head"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <div th:replace="admin/fragments/header :: header"></div>
+
+    <div sec:authorize="hasRole('ADMIN')" th:replace="admin/fragments/sidebar_admin :: sidebar"></div>
+
+    <!-- Hiển thị sidebar của Student -->
+    <div sec:authorize="hasRole('STUDENT')" th:replace="admin/fragments/sidebar_student :: sidebar"></div>
+
+    <!-- Hiển thị sidebar của Teacher -->
+    <div sec:authorize="hasRole('TEACHER')" th:replace="admin/fragments/sidebar_teacher :: sidebar"></div>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+
+
+
+            <section class="intro">
+
+
+
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" id="searchID" placeholder="Nhập ID...">
+                            <span class="input-group-btn">
+                                <a class="btn btn-success btn-custom-size" onclick="filterID()">Tìm Kiếm</a>
+
+                              </span>
+                        </div>
+
+                        <div th:if="${error}">
+                            <div class="alert alert-danger" th:text="${error}"></div>
+                        </div>
+
+                        <p></p>
+
+
+
+                        <div class="table-responsive" id="tableContainer" style="height: 500px; overflow-y: auto;">
+                            <table class="table table-light table-borderless mb-0">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Họ Đệm</th>
+                                    <th scope="col">Tên</th>
+                                    <th scope="col">Ngày Sinh</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Số Điện Thoại</th>
+                                    <th scope="col">Địa Chỉ</th>
+                                    <th scope="col">Xử Lý</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="student : ${students}">
+                                    <td th:text="${student.id}"></td>
+                                    <td th:text="${student.lastName}"></td>
+                                    <td th:text="${student.firstName}"></td>
+                                    <td th:text="${student.ngaySinh}"></td>
+                                    <td th:text="${student.email}"></td>
+                                    <td th:text="${student.soDienThoai}"></td>
+                                    <td th:text="${student.diachi}"></td>
+                                    <td>
+                                        <a th:href="@{/students/update(id=${student.id})}" class="btn btn-info btn-sm">
+                                            Chỉnh sửa
+                                        </a>
+
+
+<!--                                        <a sec:authorize="hasRole('ADMIN')"-->
+<!--                                           th:href="@{/students/delete(id=${student.id})}" class="btn btn-danger btn-sm"-->
+<!--                                           onclick="return confirm('Bạn có chắc chắn xóa sinh viên này không?');">-->
+<!--                                            Xóa-->
+<!--                                        </a>-->
+
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+            </section>
+
+
+    </div>
+    <!-- /.content-wrapper -->
+    <div th:replace="admin/fragments/footer :: footer"></div>
+
+</div>
+<!-- ./wrapper -->
+
+<script>
+    function filterID() {
+        var filterID = document.getElementById('searchID').value;
+        if (filterID) {
+            window.location.href = "/students/searchID?id=" + filterID;
+        } else {
+            alert("Vui lòng nhập ID!");
+            return;
+        }
+    }
+</script>
+<!-- jQuery 3 -->
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/jquery-ui.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/adminlte.min.js}"></script>
+<script th:src="@{/assets/js/dashboard.js}"></script>
+<script th:src="@{/assets/js/function.js}"></script>
+</body>
+</html>

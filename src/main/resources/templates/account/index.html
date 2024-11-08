@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/head :: head"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <div th:replace="admin/fragments/header :: header"></div>
+
+    <div sec:authorize="hasRole('ADMIN')" th:replace="admin/fragments/sidebar_admin :: sidebar"></div>
+
+    <!-- Hiển thị sidebar của Student -->
+    <div sec:authorize="hasRole('STUDENT')" th:replace="admin/fragments/sidebar_student :: sidebar"></div>
+
+    <!-- Hiển thị sidebar của Teacher -->
+    <div sec:authorize="hasRole('TEACHER')" th:replace="admin/fragments/sidebar_teacher :: sidebar"></div>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <section class="intro">
+            <div class="custom-container">
+                <!-- Button Group -->
+                <div class="btn-group-custom">
+                    <a class="btn btn-success btn-custom-size" th:href="@{/user/filter(role='ROLE_STUDENT')}">Học Sinh</a>
+                    <a class="btn btn-success btn-custom-size_2" th:href="@{/user/filter(role='ROLE_TEACHER')}">Giáo Viên</a>
+                    <a class="btn btn-success btn-custom-size_3" th:href="@{/user/filter(role='ROLE_ADMIN')}">Admin</a>
+                    <a class="btn btn-success btn-custom-size_4" th:href="@{/user/filterEnable}">Tài khoản chưa xác nhận <span th:text="${unverifiedCount}" class="badge badge-danger"></span></a>
+
+                </div>
+
+                <!-- Table Container -->
+                <div class="table-container">
+                    <div class="table-responsive" id="tableContainer">
+                        <table class="table table-light table-borderless mb-0">
+                            <thead>
+                            <tr>
+                                <th scope="col">Tài Khoản</th>
+                                <th scope="col">Mật Khẩu</th>
+                                <th scope="col">Quyền Truy Cập</th>
+                                <th scope="col">Xác Minh</th>
+                                <th scope="col">Xử Lý</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="user : ${users}">
+                                <td th:text="${user.username}"></td>
+                                <td th:text="${user.password}"></td>
+                                <td><b th:text="${user.roles}"></b></td>
+                                <td><i th:text="${user.enabled}"></i></td>
+                                <td>
+                                    <div class="action-container">
+                                        <form th:action="@{/admin/update/{username}(username=${user.username})}" method="post">
+                                            <input type="hidden" name="enabled" th:value="${!user.enabled}" />
+                                            <button type="submit" class="btn btn-primary btn-sm">
+                                                <span th:text="${user.enabled ? 'Vô hiệu hóa' : 'Kích hoạt'}"></span>
+                                            </button>
+                                        </form>
+                                        <a th:href="@{/admin/delete/{username}(username=${user.username})}" class="btn btn-danger btn-sm"
+                                           onclick="return confirm('Bạn có chắc chắn xóa tài khoản này không?');">Xóa</a>
+                                        <a th:href="'mailto:' + ${user.email} + '?subject=Thông Báo&body=Tài khoản của bạn đã được xác nhận bởi ADMIN!'" class="btn btn-info btn-sm">Thông Báo</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- /.content-wrapper -->
+    <div th:replace="admin/fragments/footer :: footer"></div>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/jquery-ui.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/adminlte.min.js}"></script>
+<script th:src="@{/assets/js/dashboard.js}"></script>
+<script th:src="@{/assets/js/function.js}"></script>
+</body>
+</html>

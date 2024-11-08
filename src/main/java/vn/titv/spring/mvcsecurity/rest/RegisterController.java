@@ -23,7 +23,7 @@ public class RegisterController {
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
-        List<String> roles = Arrays.asList("ROLE_ADMIN", "ROLE_TEACHER","ROLE_STUDENT");
+        List<String> roles = Arrays.asList("ROLE_TEACHER","ROLE_STUDENT");
         model.addAttribute("roles", roles);
         return "register_login/register";
     }

@@ -3,7 +3,6 @@ package vn.titv.spring.mvcsecurity.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.titv.spring.mvcsecurity.dao.StudentRepository;
 import vn.titv.spring.mvcsecurity.entity.Student;
@@ -52,7 +51,7 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public List<Student> findStudentsByClass(String lop) {
-        return studentRepository.findByLop(lop);
+            return studentRepository.findByLop(lop);
     }
 
     @Override
@@ -76,11 +75,16 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     @Transactional
-    public void deleteStudentByEmail(String email) {
+    public Student deleteStudentByEmail(String email) {
         studentRepository.deleteStudentByEmail(email);
 
+        return null;
     }
 
+    @Override
+    public Student findStudentById(int id) {
+        return studentRepository.findStudentById(id);
+    }
 
 
 }

@@ -1,0 +1,115 @@
+<aside class="main-sidebar" th:fragment="sidebar" >
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img th:src="@{/assets/images/avatar5.png}" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <a class="user-info">
+                    Xin chào <b><span sec:authentication="principal.username"></span></b>
+                    <!--            <span sec:authentication="principal.authorities"></span>-->
+                </a>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>
+        <!-- search form -->
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div>
+        </form>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+
+        <ul class="sidebar-menu" data-widget="tree">
+
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Quản lý Tài Khoản</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/admin/home"><i class="fa fa-circle-o"></i> Thông Tin Tài Khoản</a></li>
+                    <li><a href="/user/create"><i class="fa fa-circle-o"></i> Thêm Tài Khoản Mới</a></li>
+                </ul>
+            </li>
+
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Quản lý Học Sinh</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/students/list"><i class="fa fa-circle-o"></i> Thông tin Học Sinh</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Quản lý Giáo Viên</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/user/accountTeacher"><i class="fa fa-circle-o"></i> Thông tin Giáo Viên</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Quản lý Điểm</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/scores/list"><i class="fa fa-circle-o"></i> Xem Điểm</a></li>
+                    <li><a href="/thongke/thongke"><i class="fa fa-circle-o"></i> Thống Kê</a></li>
+                </ul>
+            </li>
+
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Quản Lý Lớp Học</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/home_class"><i class="fa fa-circle-o"></i> Xem Lớp</a></li>
+                    <li><a href="/students/listNoClass"><i class="fa fa-circle-o"></i> Thêm Học Sinh Mới</a></li>
+                </ul>
+            </li>
+
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Quản lý Học Phí</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/money/add"><i class="fa fa-circle-o"></i> Thêm Học Phí</a></li>
+                    <li><a href="/money/list"><i class="fa fa-circle-o"></i> Chỉnh Sửa Học Phí</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

@@ -24,5 +24,13 @@ public interface UserService {
 
     public void updatePassword(String username, String newPassword);
 
+    public boolean existsByUsername(String username);
+
+    public boolean existsByEmail(String email);
+
+    public List<User> findByRoles(String role);
+
+    public List<User> findByEnabledFalse();
+
 
 }

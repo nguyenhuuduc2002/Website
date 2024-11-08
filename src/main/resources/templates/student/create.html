@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/fragments/head :: head"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+
+<head>
+  <style>
+
+
+    .main-block, .info {
+    display: flex;
+    flex-direction: column;
+    }
+
+    .info-item {
+    width: 100%;
+    }
+    input {
+    width: calc(100% - 57px);
+    height: 36px;
+    padding-left: 10px;
+    margin: 0 0 12px -5px;
+    border-radius: 0 5px 5px 0;
+    border: solid 1px #cbc9c9;
+    box-shadow: 1px 2px 5px rgba(0,0,0,.09);
+    background: #fff;
+    }
+    .icon {
+    padding: 9px 15px;
+    margin-top: -1px;
+    border-radius: 5px 0 0 5px;
+    border: solid 0px #cbc9c9;
+    background: #666;
+    color: #fff;
+    }
+    input[type=radio] {
+    display: none;
+    }
+    label.radio {
+    position: relative;
+    display: inline-block;
+    text-indent: 32px;
+    cursor: pointer;
+    }
+    label.radio:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 0.5px solid #8ebf42;
+    background: #fff;
+    }
+    label.radio:after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 4px;
+    top: 5px;
+    left: 4px;
+    border-bottom: 3px solid #8ebf42;
+    border-left: 3px solid #8ebf42;
+    transform: rotate(-45deg);
+    opacity: 0;
+    }
+    input[type=radio]:checked + label:after {
+    opacity: 1;
+    }
+    textarea {
+    width: 99%;
+    margin-bottom: 12px;
+    }
+    button {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    background: #8ebf42;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    }
+    button:hover {
+    background: #82b534;
+    }
+    .grade-type div {
+    display: flex;
+    margin: 6px 0;
+    }
+    @media (min-width: 568px) {
+    .info {
+    flex-flow: row wrap;
+    justify-content: space-between;
+    }
+    .info-item {
+    width: 48%;
+    }
+    }
+  </style>
+
+</head>
+<!-- Site wrapper -->
+<div class="wrapper">
+
+
+  <div th:replace="admin/fragments/header :: header"></div>
+
+  <div sec:authorize="hasRole('ADMIN')" th:replace="admin/fragments/sidebar_admin :: sidebar"></div>
+
+  <!-- Hiển thị sidebar của Student -->
+  <div sec:authorize="hasRole('STUDENT')" th:replace="admin/fragments/sidebar_student :: sidebar"></div>
+
+  <!-- Hiển thị sidebar của Teacher -->
+  <div sec:authorize="hasRole('TEACHER')" th:replace="admin/fragments/sidebar_teacher :: sidebar"></div>
+
+  <!-- =============================================== -->
+
+  <!-- Left side column. contains the sidebar -->
+
+
+  <!-- =============================================== -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="intro">
+
+    <form th:action="@{/user/save}" th:object="${user}" method="POST" onsubmit="return validatePasswords()">
+
+                    <div class="info-item">
+                      <label class="icon" for="username"><i class="fas fa-user"></i></label>
+                      <input type="text" id="username" name="username" placeholder="username" maxlength="30" required />
+                      <div th:if="${error != null}" class="alert alert-danger mt-2">
+                        <p th:text="${error}"></p>
+                      </div>
+                    </div>
+
+
+              <div  class="info-item">
+                <label class="icon" for="password"><i class="fas fa-calendar"></i></label>
+                <input type="password" id="password" name="password"  placeholder="password"  maxlength="30" required />
+              </div>
+
+                    <div  class="info-item">
+                      <label class="icon" for="passwordagain"><i class="fas fa-calendar"></i></label>
+                      <input type="password" id="passwordagain" name="passwordagain" placeholder="passwordagain" maxlength="30" required />
+                        <div id="error-message" class="alert alert-danger mt-2" style="display:none;"></div>
+
+                    </div>
+
+                  <div  class="info-item">
+                    <label class="icon" for="firstName"><i class="fas fa-calendar"></i></label>
+                    <input type="text" id="firstName" name="firstName"  placeholder="firstName"  maxlength="30" required />
+                  </div>
+
+                  <div  class="info-item">
+                    <label class="icon" for="lastName"><i class="fas fa-calendar"></i></label>
+                    <input type="text" id="lastName" name="lastName" placeholder="lastName" required />
+                </div>
+
+
+
+                <div  class="info-item">
+                  <label class="icon" for="email"><i class="fas fa-envelope"></i></label>
+                  <input type="email" id="email" name="email" placeholder="email" required />
+
+                  <div th:if="${error2 != null}" class="alert alert-danger mt-2">
+                    <p th:text="${error2}"></p>
+                  </div>
+
+                </div>
+
+                <div  class="info-item">
+                  <label class="icon" for="address"><i class="fas fa-calendar"></i></label>
+                  <input type="text" id="address" name="address" placeholder="address"  required />
+                </div>
+
+                <div  class="info-item">
+                  <label class="icon" for="birthDay"><i class="fas fa-phone"></i></label>
+                  <input type="date" id="birthDay" name="birthDay" placeholder="birthDay" required />
+                </div>
+
+
+
+              <div  class="info-item">
+                  <label class="icon" for="phone"><i class="fas fa-phone"></i></label>
+                  <input type="text" name="phone" id="phone" placeholder="Phone" required/>
+                </div>
+
+
+      <div class="grade-type">
+          <h4><b>Role:</b></h4>
+          <div>
+            <input type="radio" value="ROLE_TEACHER" id="radioOne" name="roles" checked/>
+            <label for="radioOne" class="radio" >Teacher</label>
+          </div>
+          <div>
+            <input type="radio" value="ROLE_STUDENT" id="radioTwo" name="roles" checked/>
+            <label for="radioTwo" class="radio">Student</label>
+          </div>
+      </div>
+
+
+
+          <button type="submit" >Submit</button>
+
+        </form>
+    </section>
+
+  </div>
+
+  <!-- /.content-wrapper -->
+  <div th:replace="admin/fragments/footer :: footer"></div>
+
+</div>
+
+<script>
+    function validatePasswords() {
+      var password = document.getElementById("password").value;
+      var passwordAgain = document.getElementById("passwordagain").value;
+      var errorMessage = document.getElementById("error-message");
+
+      if (password !== passwordAgain) {
+          errorMessage.textContent = "Mật khẩu không khớp."; // Update the message here
+          errorMessage.style.display = "block"; // Show the error message
+          return false; // Prevent form submission
+      } else {
+          errorMessage.textContent = ""; // Clear the error message
+          errorMessage.style.display = "none"; // Hide the error message
+          return true; // Allow form submission
+      }
+  }
+
+
+    function checkUserName() {
+      var username = document.getElementById("username").value;
+      if (username !== checkUsername) {
+         check1.textContent = "Username đã tồn tại";
+         return false;
+      } else {
+         check1.textContent = "";
+         return true;
+      }
+    }
+</script>
+
+<!-- jQuery 3 -->
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/jquery-ui.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/adminlte.min.js}"></script>
+<script th:src="@{/assets/js/dashboard.js}"></script>
+<script th:src="@{/assets/js/function.js}"></script>
+</body>
+</html>

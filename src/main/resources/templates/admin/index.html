@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/head :: head"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<head>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero {
+            background-image: url('https://via.placeholder.com/1920x800'); /* Bạn có thể thay bằng ảnh nền */
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+
+        .hero .btn-custom {
+            margin-top: 30px;
+            padding: 10px 30px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .hero .btn-custom:hover {
+            background-color: #218838;
+        }
+
+        .info-section {
+            padding: 50px 0;
+            background-color: #fff;
+        }
+
+        .info-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .info-card {
+            text-align: center;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #f4f4f4;
+        }
+
+        .info-card i {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #17a2b8;
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        footer a {
+            color: #ffc107;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+
+}
+
+<!--     .typing-animation {-->
+<!--    color: #073B4C;-->
+<!--    display: inline-block;-->
+<!--    overflow: hidden; /* Ẩn phần chữ chưa xuất hiện */-->
+<!--    white-space: nowrap; /* Để dòng chữ không bị xuống dòng */-->
+<!--    border-right: 3px solid; /* Tạo hiệu ứng gõ với dấu nháy */-->
+<!--    animation: typing 3s steps(20, end), blink 0.25s step-end infinite;-->
+<!--    animation-iteration-count: infinite; /* Để lặp lại hiệu ứng */-->
+<!--    animation-delay: 0s;-->
+<!--    animation-timing-function: steps(20);-->
+<!--}-->
+
+<!--/* Hiệu ứng gõ từng chữ */-->
+<!--@keyframes typing {-->
+<!--    0% {-->
+<!--        width: 0;-->
+<!--    }-->
+<!--    50%, 100% {-->
+<!--        width: 100%;-->
+<!--    }-->
+<!--}-->
+
+<!--/* Hiệu ứng nháy con trỏ */-->
+<!--@keyframes blink {-->
+<!--    0%, 100% {-->
+<!--        border-color: transparent;-->
+<!--    }-->
+<!--    50% {-->
+<!--        border-color: #073B4C;-->
+<!--    }-->
+<!--}-->
+
+
+    </style>
+</head>
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <div th:replace="admin/fragments/header :: header"></div>
+
+    <!-- Hiển thị sidebar của Admin -->
+    <div sec:authorize="hasRole('ADMIN')" th:replace="admin/fragments/sidebar_admin :: sidebar"></div>
+
+    <!-- Hiển thị sidebar của Student -->
+    <div sec:authorize="hasRole('STUDENT')" th:replace="admin/fragments/sidebar_student :: sidebar"></div>
+
+    <!-- Hiển thị sidebar của Teacher -->
+    <div sec:authorize="hasRole('TEACHER')" th:replace="admin/fragments/sidebar_teacher :: sidebar"></div>
+
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+
+        <!-- Main content -->
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="image-container">
+                <img th:src="@{/assets/images/home2.jpg}"  alt="User Image">
+
+                <!-- Nội dung overlay -->
+                <div class="overlay-content">
+                    <p><h1  class="typing-animation" style="color:white">Wellcome to homepage</h1></p>
+                    <a href="#" class="btn btn-custom"><h3>Get Started</h3></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Section -->
+
+        <!-- Footer Section -->
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <div th:replace="admin/fragments/footer :: footer"></div>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/jquery-ui.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/adminlte.min.js}"></script>
+<script th:src="@{/assets/js/dashboard.js}"></script>
+<script th:src="@{/assets/js/function.js}"></script>
+</body>
+</html>

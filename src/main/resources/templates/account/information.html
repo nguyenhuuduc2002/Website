@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/head :: head"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<head>
+    <style>
+        /* Thêm CSS tại đây */
+        .user-card-full {
+            background: #f9f9f9;
+            border: 1px solid #e7e7e7;
+            border-radius: 5px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .user-profile {
+            padding: 20px 0;
+        }
+
+        .user-profile img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .card-block {
+            padding: 20px;
+        }
+
+        .card-block h3 {
+            color: red;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+        }
+
+        .profile-button {
+            padding: 10px 20px;
+        }
+
+    </style>
+</head>
+
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <div th:replace="admin/fragments/header :: header"></div>
+
+    <div sec:authorize="hasRole('ADMIN')" th:replace="admin/fragments/sidebar_admin :: sidebar"></div>
+
+    <!-- Hiển thị sidebar của Student -->
+    <div sec:authorize="hasRole('STUDENT')" th:replace="admin/fragments/sidebar_student :: sidebar"></div>
+
+    <!-- Hiển thị sidebar của Teacher -->
+    <div sec:authorize="hasRole('TEACHER')" th:replace="admin/fragments/sidebar_teacher :: sidebar"></div>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+
+        <section class="intro">
+            <form id="userForm" th:action="@{/user/update}" method="POST">
+        <!-- Main content -->
+                <div class="page-content page-container" id="page-content">
+                    <div class="padding">
+                        <div class="row container d-flex justify-content-center">
+                            <div class="col-xl-6 col-md-12">
+                                <div class="card user-card-full">
+                                    <div class="row m-l-0 m-r-0">
+                                        <div class="col-sm-4 bg-c-lite-green user-profile">
+                                            <div class="card-block text-center text-white">
+                                                <div class="m-b-25">
+                                                    <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image">
+                                                </div>
+<!--                                                <span class="font-weight-bold" th:text="${user.firstName}"></span>-->
+                                                <span class="text-black-50" th:text="${user.email}"></span>
+
+                                                <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="card-block">
+                                                <h3 class="m-b-20 p-b-5 b-b-default f-w-600" style="border-bottom: 3px solid #333; color: red; text-align: center;">THÔNG TIN CÁ NHÂN</h3>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <p class="m-b-10 f-w-600">First Name</p>
+                                                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="first name" th:value="${user.firstName}">
+
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <p class="m-b-10 f-w-600">Last Name</p>
+                                                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="last name" th:value="${user.lastName}">
+                                                    </div>
+                                                </div>
+
+                                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600"></h6>
+
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <p class="m-b-10 f-w-600">Birth Day</p>
+                                                        <input type="date" class="form-control"  id="birthDay" name="birthDay" th:value="${user.birthDay}">
+
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <p class="m-b-10 f-w-600">Phone</p>
+                                                        <input type="text" class="form-control" placeholder="enter phone number" id="phone" name="phone" th:value="${user.phone}">
+
+                                                    </div>
+                                                </div>
+
+                                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600"></h6>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <p class="m-b-10 f-w-600">Address</p>
+                                                        <input type="text" class="form-control" placeholder="enter address" id="address" name="address" th:value="${user.address}">
+
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <p class="m-b-10 f-w-600">Email</p>
+                                                        <input type="text" class="form-control" placeholder="enter email id" id="email" name="email" th:value="${user.email}" readonly>
+
+                                                    </div>
+                                                </div>
+
+                                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600"></h6>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <button class="btn btn-primary profile-button" type="submit">Lưu Thông Tin</button>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <div th:replace="admin/fragments/footer :: footer"></div>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/jquery-ui.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/adminlte.min.js}"></script>
+<script th:src="@{/assets/js/dashboard.js}"></script>
+<script th:src="@{/assets/js/function.js}"></script>
+</body>
+</html>

@@ -1,15 +1,18 @@
 package vn.titv.spring.mvcsecurity.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.titv.spring.mvcsecurity.dao.UserRepository;
 import vn.titv.spring.mvcsecurity.entity.Student;
 import vn.titv.spring.mvcsecurity.entity.User;
 import vn.titv.spring.mvcsecurity.service.StudentService;
 import vn.titv.spring.mvcsecurity.service.UserService;
 
+import javax.management.relation.Role;
 import java.security.Principal;
 import java.util.List;
 
@@ -23,7 +26,8 @@ public class UserController {
     private StudentService studentService;
 
     @Autowired
-    private UserRepository userRepository;
+    PasswordEncoder passwordEncoder;
+
 
     @GetMapping("/home")
     public String home(Model model, Principal principal) {
@@ -31,7 +35,7 @@ public class UserController {
         String username = principal.getName();
         User user = userService.findByUsername(username);
         model.addAttribute("user", user);
-        return "student/information";
+        return "account/information";
     }
 
     @GetMapping("/update")
@@ -99,22 +103,27 @@ public class UserController {
     public String create(Model model){
         User users = new User();
         model.addAttribute("users", users);
-        return "create/create-form";
+        return "student/create";
     }
 
 
 
     @PostMapping("/save")
     public String saveUser(@ModelAttribute User user, Model model) {
-        if (userRepository.existsByUsername(user.getUsername())) {
+        if (userService.existsByUsername(user.getUsername())) {
             model.addAttribute("error", "Username đã tồn tại, vui lòng sử dụng Username khác!");
-            return "create/create-form"; // Trả về trang đăng ký với thông báo lỗi
+            return "student/create"; // Trả về trang đăng ký với thông báo lỗi
         }
+        if (userService.existsByEmail(user.getEmail())) {
+            model.addAttribute("error2", "Email đã tồn tại, vui lòng sử dụng Email khác!");
+            return "student/create";
+        }
+
 
         // Lưu thông tin user vào cơ sở dữ liệu
         userService.saveUser(user);
 
-        User user1 = userRepository.findByEmail(user.getEmail());
+        User user1 = userService.findByEmail(user.getEmail());
 
         if (user1.getRoles().contains("ROLE_STUDENT")) {
             // Tạo và lưu thông tin student vào cơ sở dữ liệu
@@ -127,10 +136,10 @@ public class UserController {
             student.setNgaySinh(user.getBirthDay());
 
             studentService.addStudent(student);
-            return "/public/homepage"; // Điều hướng đến trang chính nếu thành công
+            return "/admin/index"; // Điều hướng đến trang chính nếu thành công
 
         }
-        return "/public/homepage";
+        return "/admin/index";
     }
 
 
@@ -139,8 +148,15 @@ public class UserController {
     public String listAll(Model model){
         List<Student> students = studentService.getAllStudents();
         model.addAttribute("students", students);
-        return "home/home";
+        return "student/index";
 
+    }
+
+    @GetMapping("/accountTeacher")
+    public String account(Model model){
+        List<User> users = userService.findByRoles("ROLE_TEACHER");
+        model.addAttribute("users",users);
+        return "teacher/index";
     }
 
     @GetMapping("/scheduleTeacher")
@@ -149,6 +165,56 @@ public class UserController {
 
     }
 
+    @GetMapping("/showPasswordPage")
+    public String showUpdatePasswordForm(Model model) {
+        model.addAttribute("user", new User());
+        return "password/index";
+    }
+
+    @PostMapping("/updatePassword")
+    public String updatePassword(@RequestParam("currentPassword") String currentPassword,
+                                 @RequestParam("newPassword") String newPassword,
+                                 @RequestParam("confirmPassword") String confirmPassword,
+                                 Principal principal,
+                                 Model model,
+                                 RedirectAttributes redirectAttributes) {
+        String username = principal.getName();
+        User user = userService.findByUsername(username);
+
+        // Kiểm tra mật khẩu hiện tại
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            redirectAttributes.addFlashAttribute("error", "Mật khẩu hiện tại không đúng!");
+            return "redirect:/user/showPasswordPage";
+        }
+
+        // Kiểm tra mật khẩu mới và xác nhận
+        if (!newPassword.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute("error", "Mật khẩu mới và xác nhận mật khẩu không khớp!");
+            return "redirect:/user/showPasswordPage";
+        }
+
+        // Cập nhật mật khẩu
+        userService.updatePassword(user.getUsername(), passwordEncoder.encode(newPassword));
+
+        // Chuyển hướng đến trang chủ
+        return "admin/index";
+    }
+
+    @GetMapping("/filter")
+    public String fileUsers(@RequestParam("role") String role , Model model){
+       List<User> users = userService.findByRoles(role);
+       model.addAttribute("users",users);
+        return "account/index";
+    }
+
+    @GetMapping("/filterEnable")
+    public String filterEnable(Model model){
+        List<User> users = userService.findByEnabledFalse();
+        long unverifiedCount = users.stream().filter(user -> !user.isEnabled()).count();
+        model.addAttribute("users", users);
+        model.addAttribute("unverifiedCount", unverifiedCount);
+        return "account/index";
+    }
 
 
 }

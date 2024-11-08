@@ -1,0 +1,89 @@
+<head th:fragment="head">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home Page</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <style>
+        .content-wrapper {
+            padding: 20px;
+            background-color: #f4f6f9;
+            min-height: 100vh;
+        }
+
+        .intro {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+           .custom-container {
+        display: flex;
+        justify-content: space-between; /* Chia không gian giữa các cột */
+        align-items: flex-start; /* Căn các phần tử lên trên cùng */
+        gap: 20px; /* Khoảng cách giữa cột nút và bảng */
+    }
+
+    .btn-group-custom {
+        display: flex;
+        flex-direction: column; /* Sắp xếp các nút theo cột */
+        align-items: flex-start; /* Căn trái */
+        gap: 10px; /* Khoảng cách giữa các nút */
+    }
+
+    .btn-custom-size, .btn-custom-size_2, .btn-custom-size_3, .btn-custom-size_4 {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        width: 200px; /* Đặt độ rộng cố định */
+    }
+
+    .table-container {
+        flex-grow: 1; /* Bảng sẽ chiếm phần không gian còn lại */
+    }
+
+
+        .table thead th {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .table tbody td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .table-responsive {
+            overflow-y: auto;
+            max-height: 600px;
+        }
+
+        .action-container {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .action-container .btn {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
+        .alert {
+            text-align: center;
+        }
+    </style>
+
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/AdminLTE.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/_all-skins.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/jquery-ui.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+    <script th:src="@{/assets/js/angular.min.js}"></script>
+    <script th:src="@{/assets/js/app.js}"></script>
+</head>

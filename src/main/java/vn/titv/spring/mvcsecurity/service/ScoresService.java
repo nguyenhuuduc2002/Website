@@ -27,4 +27,5 @@ public interface ScoresService {
 
     public Scores getScoresByStudentId(Integer studentId);
 
+    public List<Scores> getScoresSortedByAverage();
 }

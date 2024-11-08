@@ -14,6 +14,7 @@ import vn.titv.spring.mvcsecurity.service.ScoresService;
 import vn.titv.spring.mvcsecurity.service.StudentService;
 import vn.titv.spring.mvcsecurity.service.UserService;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -43,7 +44,7 @@ public class ScoresController {
         }
 
         model.addAttribute("scores", scores);
-        return "scores/home_scores";
+        return "scores/index";
 
     }
 
@@ -59,10 +60,10 @@ public class ScoresController {
         Scores scores = scoresService.getScoresByStudentId(student.getId());
 
         if (scores == null) {
-            return "scores/no_scores"; // Trang thông báo không có điểm
+            return "scores/scores-student/no_scores"; // Trang thông báo không có điểm
         } else {
             model.addAttribute("scores", scores);
-            return "scores/home_scores_student"; // Trang hiển thị điểm số
+            return "scores/scores-student/scores"; // Trang hiển thị điểm số
         }
 
 
@@ -78,7 +79,7 @@ public class ScoresController {
         model.addAttribute("scores", scores);
         model.addAttribute("students", students);
         model.addAttribute("usedIds", usedIds);
-        return "create/create-form-scores";
+        return "scores/create";
     }
 
     @PostMapping("/save")
@@ -110,13 +111,39 @@ public class ScoresController {
     public String update(@RequestParam("id") Integer id, Model model){
         Scores scores = scoresService.getScoresById(id);
         model.addAttribute("scores", scores);
-        return "update/update-form-scores";
+        return "scores/update";
     }
     @GetMapping("/delete")
     public String delete(@RequestParam("id") Integer id, Model model){
         scoresService.deleteScoresById(id);
         return "redirect:/scores/list";
     }
+
+    @GetMapping("/sortByAverage")
+    public String sortScoresByAverage(Model model) {
+        List<Scores> sortedScores = scoresService.getScoresSortedByAverage();
+        model.addAttribute("scores", sortedScores);
+        return "scores/index"; // Sử dụng lại trang hiển thị điểm số
+    }
+
+
+    @GetMapping("/searchID")
+    public String searchID(@RequestParam(name = "id", required = false) Integer id, Model model) {
+        if (id != null) {
+            Scores scores = scoresService.getScoresByStudentId(id);
+            if (scores != null) {
+                model.addAttribute("scores", Collections.singletonList(scores));
+            } else {
+                model.addAttribute("errorMessage", "Không tìm thấy ID này!"); // Sử dụng "errorMessage" cho rõ ràng
+            }
+        } else {
+            // Nếu không có ID, hiển thị tất cả học sinh
+            List<Scores> scores = scoresService.getAllScores();
+            model.addAttribute("scores", scores);
+        }
+        return "scores/index"; // Điều chỉnh tên view nếu cần
+    }
+
 
 
 }

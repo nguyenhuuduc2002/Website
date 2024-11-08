@@ -122,6 +122,6 @@ public class ThongKeController {
         model.addAttribute("diemYeu", diemYeu);
         model.addAttribute("diemKem", diemKem);
 
-        return "thongke/thongke";
+        return "scores/statistics";
     }
 }

@@ -15,6 +15,7 @@ import vn.titv.spring.mvcsecurity.service.StudentService;
 import vn.titv.spring.mvcsecurity.service.UserService;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -25,8 +26,7 @@ public class StudentController {
 
     private UserService userService;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+
 
     @Autowired
     public StudentController(StudentService studentService, ScoresService scoresService, UserService userService) {
@@ -45,21 +45,27 @@ public class StudentController {
     @GetMapping("/list")
     public String listAll(Model model){
         List<Student> students = studentService.getAllStudents();
-
         model.addAttribute("students", students);
-        return "home/home";
+        return "student/index";
 
 
     }
 
 
 
+    @GetMapping("/listNoClass")
+    public String listNoClass(Model model){
+        List<Student> students = studentService.findStudentsByClass(null);
+        model.addAttribute("students", students);
+        return "class/studentNoClass";
+    }
+
 
     @GetMapping("/create")
     public String create(Model model){
         Student student = new Student();
         model.addAttribute("student", student);
-        return "create/create-form";
+        return "student/create";
     }
 
     @PostMapping("/save")
@@ -83,12 +89,43 @@ public class StudentController {
         return "redirect:/students/list";
     }
 
+    @PostMapping("/save2")
+    public String save2(@ModelAttribute("student") Student student){
+        studentService.updateStudent(student);
+        String email = student.getEmail();
+        User user = userService.findByEmail(email);
+
+        if (user != null) {
+            // Update the user details based on the student details
+            user.setFirstName(student.getFirstName());
+            user.setLastName(student.getLastName());
+            user.setBirthDay(student.getNgaySinh());
+            user.setEmail(student.getEmail());
+            user.setPhone(student.getSoDienThoai());
+            user.setAddress(student.getDiachi());
+
+            // Save the updated user
+            userService.saveUser2(user);
+        }
+        return "redirect:/students/listNoClass";
+    }
+
+
     @GetMapping("/update")
     public String update(@RequestParam("id") Integer id, Model model){
         Student student = studentService.getStudentById(id);
         model.addAttribute("student", student);
-        return "update/update-form";
+        return "student/update";
     }
+
+
+    @GetMapping("/update2")
+    public String update2(@RequestParam("id") Integer id, Model model){
+        Student student = studentService.getStudentById(id);
+        model.addAttribute("student", student);
+        return "class/update";
+    }
+
 
 
     @GetMapping("/delete")
@@ -117,40 +154,24 @@ public class StudentController {
 
     }
 
-    @GetMapping("/showPasswordPage")
-    public String showUpdatePasswordForm(Model model) {
-        model.addAttribute("user", new User());
-        return "student/change_password";
+    @GetMapping("/searchID")
+    public String searchID(@RequestParam(name = "id", required = false) Integer id, Model model,Student stu) {
+        if (id != null ) {
+            Student student = studentService.findStudentById(id);
+            if(student!=null){
+                model.addAttribute("students", Collections.singletonList(student));
+            }else{
+                model.addAttribute("error", "không tìm thấy ID này!");
+            }
+        } else {
+            // Nếu không có ID, hiển thị tất cả học sinh
+            List<Student> students = studentService.getAllStudents();
+            model.addAttribute("students", students);
+        }
+        return "student/index"; // Điều chỉnh tên view nếu cần
     }
 
-    @PostMapping("/updatePassword")
-    public String updatePassword(@RequestParam("currentPassword") String currentPassword,
-                                 @RequestParam("newPassword") String newPassword,
-                                 @RequestParam("confirmPassword") String confirmPassword,
-                                 Principal principal,
-                                 Model model,
-                                 RedirectAttributes redirectAttributes) {
-        String username = principal.getName();
-        User user = userService.findByUsername(username);
 
-        // Kiểm tra mật khẩu hiện tại
-        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
-            redirectAttributes.addFlashAttribute("error", "Mật khẩu hiện tại không đúng!");
-            return "redirect:/students/showPasswordPage";
-        }
-
-        // Kiểm tra mật khẩu mới và xác nhận
-        if (!newPassword.equals(confirmPassword)) {
-            redirectAttributes.addFlashAttribute("error", "Mật khẩu mới và xác nhận mật khẩu không khớp!");
-            return "redirect:/students/showPasswordPage";
-        }
-
-        // Cập nhật mật khẩu
-        userService.updatePassword(user.getUsername(), passwordEncoder.encode(newPassword));
-
-        // Chuyển hướng đến trang chủ
-        return "public/homepage";
-    }
 
 
 
